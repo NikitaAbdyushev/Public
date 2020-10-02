@@ -1,0 +1,182 @@
+#include <string>
+#include <cctype>
+#include <iostream>
+#include <cmath>
+#include <iomanip>
+#include "Header.h"
+using namespace std;
+
+class LorentzVector
+{
+public:
+    //----------------------------------------------------------------------------------DONE
+    LorentzVector()
+    {
+        x = 0;
+        y = 0;
+        z = 0;
+        t = 0;
+    }
+    LorentzVector(double X, double Y, double Z,double T)
+    {
+        x = X;
+        y = Y;
+        z = Z;
+        t = T;
+    }
+    void Print()
+    {
+        cout << x << " " << y << " " << z<<" "<<t;
+    }
+    bool operator ==(const LorentzVector& other)
+    {
+        if (this->x == other.x && this->y == other.y && this->z == other.z)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    //----------------------------------------------------------------------OPERATORS
+    LorentzVector operator +(const LorentzVector& other)
+    {
+        LorentzVector temp;
+        temp.x = this->x + other.x;
+        temp.y = this->y + other.y;
+        temp.t = this->t + other.t;
+        temp.z = this->z + other.z;
+        return temp;
+
+    }
+    LorentzVector operator -(const LorentzVector& other)
+    {
+        LorentzVector temp;
+        temp.x = this->x - other.x;
+        temp.y = this->y - other.y;
+        temp.t = this->t - other.t;
+        temp.z = this->z - other.z;
+        return temp;
+
+    }
+    friend ostream& operator<< (ostream& os, const LorentzVector& V)
+    {
+        os << V.x << " " << V.y << " " << V.z << " " << V.t;
+        return os;
+    }
+    friend istream& operator>>(istream& is, LorentzVector& V)
+    {
+        is >> V.x;
+        is >> V.y;
+        is >> V.z;
+        is >> V.t;
+        return is;
+    }
+    LorentzVector& operator*(double scal)
+    {
+       
+        this->x = this->x * scal;
+        this->y = this->y * scal;
+        this->z = this->z * scal;
+        this->t = this->t * scal;
+        return *this;
+    }
+    double& operator [](int index)
+    {
+        if (index == 1)
+        {
+            return x;
+        }
+        if (index == 2)
+        {
+            return y;
+        }
+        if (index == 3)
+        {
+            return z;
+        }
+        if (index == 4)
+        {
+            return t;
+        }
+    }
+    friend LorentzVector operator*(double scal, LorentzVector temp)
+    {
+        LorentzVector V;
+        V.x = scal * temp.x;
+        V.y = scal * temp.y;
+        V.z = scal * temp.z;
+        V.t = scal * temp.t;
+        return V;
+    }
+    LorentzVector& operator +=(const LorentzVector& other)
+    {
+        this->x += other.x;
+        this->y += other.y;
+        this->z += other.z;
+        this->t += other.t;
+        return *this;
+
+    }
+    LorentzVector operator -()
+    {
+        LorentzVector tmp(*this);
+        tmp.x *= -1;
+        tmp.y *= -1;
+        tmp.z *= -1;
+        tmp.t *= -1;
+        return tmp;
+    }
+    LorentzVector& operator +()
+    {
+        return *this;
+
+    }
+    LorentzVector operator *=(double scal)
+    {
+        this->x = this->x *= scal;
+        this->y = this->y *= scal;
+        this->z = this->z *= scal;
+        this->t = this->t *= scal;
+        return *this;
+    }
+    //----------------------------------------------------------------------------------metods
+    double dot(const LorentzVector& other)
+    {
+        double a;
+        a = this->x * other.x + this->y * other.y + this->z * other.z + this->t * other.t;
+        return a;
+    }
+    double norm()
+    {
+        double a;
+        a = sqrt(pow(this->x, 2) + pow(this->y, 2) + pow(this->z, 2) + pow(this->t, 2));
+        return a;
+    }
+    //--------------------------------ОСТАЛОСЬ------------------------------------------------------------------------------------------------------------------------------------------
+
+    LorentzVector zshift()
+    {
+
+
+    }
+private:
+    double x;
+    double y;
+    double z;
+    double t;
+};
+
+int main() 
+{
+    LorentzVector a(1, 1, 1, 1);
+    LorentzVector b(1, 2, 3, 10);
+    a *= 2;
+    cout << a;
+
+   
+
+
+    return 0;
+}

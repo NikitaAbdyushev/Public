@@ -1,0 +1,46 @@
+#include <iostream>
+#include <cmath>
+#include <iomanip>
+#include <string>
+#include<cctype>
+#include <map>
+#include <string>
+#include <cctype>
+using namespace std;
+map<char, int> BuildCharCounters(const string& s)
+{
+    map<char, int> Counter;
+    for (int i;i < s.size();i++)
+    {
+        if (auto it = Counter.find(tolower(s[i])); it != Counter.end())
+        {
+            it->second = it->second + 1;
+        }
+        else
+        {
+            Counter.insert(pair <char, int>(tolower(s[i]), 1));
+        }
+    }
+   
+   
+    return Counter;
+}
+
+bool IsAnagrams(const string& s1, const string& s2)
+{
+    if (BuildCharCounters(s1) == BuildCharCounters(s2))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+int main()
+{
+    string s1, s2;
+    cin >> s1 >> s2;
+    cout << boolalpha << IsAnagrams(s1, s2) << endl;
+}
